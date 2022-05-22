@@ -27,67 +27,63 @@ def select_folder():
 	path.set(file_path)
 
 def clean_dir():
-	''' Organize the directory '''
-	try:
-		entry_path = path.get() # This path is extracted from entry widget
+    ''' Organize the directory '''
+    try:
+        entry_path = path.get() # This path is extracted from entry widget
 
-		if (entry_path != ''):
-			if (os.path.isdir(entry_path)):
+        if (entry_path != '') and (os.path.isdir(entry_path)):
 
-				os.chdir(entry_path)
-				cwd_files = [file.lower() for file in os.listdir(os.getcwd())] # Get the CWD files
+            os.chdir(entry_path)
+            cwd_files = [file.lower() for file in os.listdir(os.getcwd())] # Get the CWD files
 
-				file_name =  os.path.basename(sys.argv[0])  # Extract name of the script
+            file_name =  os.path.basename(sys.argv[0])  # Extract name of the script
 
-				if os.path.isfile(file_name): # Exclude the main script in the cleaning process if it exists in the CWD
-					cwd_files.remove(file_name)
+            if os.path.isfile(file_name): # Exclude the main script in the cleaning process if it exists in the CWD
+            	cwd_files.remove(file_name)
 
-				count_files = len(next(os.walk(os.getcwd()))[2])
-				# os.walk yields 3-tuple (dirpath, dirnames, filenames) (Its a Generator)
+            count_files = len(next(os.walk(os.getcwd()))[2])
+            # os.walk yields 3-tuple (dirpath, dirnames, filenames) (Its a Generator)
 
-				for file in cwd_files:
+            for file in cwd_files:
 
-					if os.path.isfile(file):
-						ext = os.path.splitext(file) # Split the file into its name and extension
+            	if os.path.isfile(file):
+            		ext = os.path.splitext(file) # Split the file into its name and extension
 
-						if (ext[1] in exts.get('Images')):
-						    create_folder('Images')
-						    shutil.move(file, './Images/')
+            		if (ext[1] in exts.get('Images')):
+            		    create_folder('Images')
+            		    shutil.move(file, './Images/')
 
-						elif (ext[1] in exts.get('Medias')):
-							create_folder('Media')
-							shutil.move(file, './Media/')
+            		elif (ext[1] in exts.get('Medias')):
+            			create_folder('Media')
+            			shutil.move(file, './Media/')
 
-						elif (ext[1] in exts.get('Docs')):
-							create_folder('Docs')
-							shutil.move(file, './Docs/')
+            		elif (ext[1] in exts.get('Docs')):
+            			create_folder('Docs')
+            			shutil.move(file, './Docs/')
 
-						elif (ext[1] in exts.get('Codes')):
-						    create_folder('Codes')
-						    shutil.move(file, './Codes/')
+            		elif (ext[1] in exts.get('Codes')):
+            		    create_folder('Codes')
+            		    shutil.move(file, './Codes/')
 
-						elif (ext[1] in exts.get('Archives')):
-						    create_folder('Archives')
-						    shutil.move(file, './Archives/')
+            		elif (ext[1] in exts.get('Archives')):
+            		    create_folder('Archives')
+            		    shutil.move(file, './Archives/')
 
-						elif (ext[1] in exts.get('Executables')):
-						    create_folder('Exec')
-						    shutil.move(file, './Exec/')
+            		elif (ext[1] in exts.get('Executables')):
+            		    create_folder('Exec')
+            		    shutil.move(file, './Exec/')
 
-						else:
-							create_folder('Others')
-							shutil.move(file, './Others/')
+            		else:
+            			create_folder('Others')
+            			shutil.move(file, './Others/')
 
 
-				tmsg.showinfo("SUCCESS!", f"Your Directory Has Been Cleaned :)\n{count_files} file(s) Have Been Cleaned")
+            tmsg.showinfo("SUCCESS!", f"Your Directory Has Been Cleaned :)\n{count_files} file(s) Have Been Cleaned")
 
-			else:
-				tmsg.showerror("ERROR!", "Directory Not Found :(")
-		else:
-			tmsg.showerror("ERROR!", "Directory Not Found :(")
-
-	except OSError:
-		tmsg.showerror("Error!", "Directory Not Found :(")
+        else:
+            tmsg.showerror("ERROR!", "Directory Not Found :(")
+    except OSError:
+    	tmsg.showerror("Error!", "Directory Not Found :(")
 
 root = Tk()
 root.geometry('600x490')

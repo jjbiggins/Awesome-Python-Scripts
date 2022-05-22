@@ -39,7 +39,7 @@ def caeser_cipher(string_: str, offset: int, decode: bool, file_: string) -> Non
 
     if file_:
         extension = 'dec' if decode else 'enc'
-        with open("{}.{}".format(file_, extension), 'w') as f:
+        with open(f"{file_}.{extension}", 'w') as f:
             print(final_converted, file=f)
     else:
         print(final_converted)
@@ -52,9 +52,9 @@ def check_offset_range(value: int) -> int:
     :return:  valid integer
     :raises: argparse.ArgumentTypeError
     """
-    value = int(value)
+    value = value
     if value < -25 or value > 25:
-        raise argparse.ArgumentTypeError("{} is an invalid offset".format(value))
+        raise argparse.ArgumentTypeError(f"{value} is an invalid offset")
     return value
 
 

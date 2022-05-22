@@ -10,7 +10,10 @@ def show_def(word):
     if word in data:
         return data[word]
     elif len(get_close_matches(word, data.keys())) > 0:
-        choice = input("Did you mean %s instead ? Enter Y for yes or N for no: " % get_close_matches(word, data.keys())[0])
+        choice = input(
+            f"Did you mean {get_close_matches(word, data.keys())[0]} instead ? Enter Y for yes or N for no: "
+        )
+
         if choice == "Y":
             return data[get_close_matches(word, data.keys())[0]]
         elif choice == "N":

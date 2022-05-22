@@ -26,14 +26,14 @@ def requests_retry_session(
 
 
 def create_json_file(json_file_number):
-    name = 'torrents' + str(json_file_number) + '.json'
+    name = f'torrents{str(json_file_number)}.json'
     with open(name, 'w') as f:
         content = {}
         json.dump(content, f)
 
 
 def add_torrent_to_json_file(json_file_number):
-    name = 'torrents' + str(json_file_number) + '.json'
+    name = f'torrents{str(json_file_number)}.json'
     with open(name, 'r') as f:
         content = json.load(f)
     content[title_long] = {'720_bluray': torrent_720_bluray, '1080_bluray': torrent_1080_bluray,
@@ -84,10 +84,8 @@ for page in range(1, 424):
                     torrent_1080_web = torrent.get('url')
                 elif torrent.get('type') == "bluray":
                     torrent_1080_bluray = torrent.get('url')
-        if count < 20:
-            add_torrent_to_json_file(json_file_number)
-        else:
+        if count >= 20:
             count = 1
             json_file_number += 1
             create_json_file(json_file_number)
-            add_torrent_to_json_file(json_file_number)
+        add_torrent_to_json_file(json_file_number)

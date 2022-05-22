@@ -2,24 +2,20 @@ import sys
 from converter import Converter
 
 def get_input(msg = ''):
-    if (sys.version_info > (3, 0)):
-        return input(msg)
-    else:
-        return raw_input(msg)
+    return input(msg) if (sys.version_info > (3, 0)) else raw_input(msg)
 
 def is_int_or_float(value):
     return value.isdigit()
 
 def process_check(value, callback):
-    if value == 'Q' or value == 'q':
+    if value in ['Q', 'q']:
         user_selected(value)
-    elif value == 'C' or value == 'c':
+    elif value in ['C', 'c']:
         if (callback.__name__ == 'process_px_to_rem'):
             process_rem_to_px()
-            return
         else:
             process_px_to_rem()
-            return
+        return
     elif is_int_or_float(value) == False:
         print("Warning:: Allowed number only! Or if you need to qute plesae enter Q.\n")
         callback()
@@ -30,7 +26,7 @@ def process_px_to_rem():
     process_check(px, process_px_to_rem)
 
     rem = Converter().px_to_rem(px)
-    print("%spx == %srem" % (px, rem))
+    print(f"{px}px == {rem}rem")
     process_px_to_rem()
 
 def process_rem_to_px():
@@ -39,15 +35,15 @@ def process_rem_to_px():
     process_check(rem, process_rem_to_px)
 
     px = Converter().rem_to_px(rem)
-    print("%srem == %spx" % (rem, px))
+    print(f"{rem}rem == {px}px")
     process_rem_to_px()
 
 def user_selected(user_input):
-    if user_input == 'A' or user_input == 'a': # PX to REM
+    if user_input in ['A', 'a']: # PX to REM
         process_px_to_rem()
-    elif user_input == 'B' or user_input == 'b': # REM to PX
+    elif user_input in ['B', 'b']: # REM to PX
         process_rem_to_px()
-    elif user_input == 'Q' or user_input == 'q':
+    elif user_input in ['Q', 'q']:
         print("Nice to meet you. See you next time!")
         exit()
     else:

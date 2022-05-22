@@ -12,9 +12,9 @@ diameter = parser.add_argument('-d', '--diameter', help='output file diameter')
 args = parser.parse_args()
 
 
-print('Input file is '+ str(args.inputfile))
-print('Output file is '+ str(args.outputfile))
-print('Image diameter will be '+ str(args.diameter))
+print(f'Input file is {str(args.inputfile)}')
+print(f'Output file is {str(args.outputfile)}')
+print(f'Image diameter will be {str(args.diameter)}')
 
 im = Image.open(args.inputfile)
 

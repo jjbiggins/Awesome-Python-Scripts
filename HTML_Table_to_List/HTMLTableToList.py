@@ -11,12 +11,9 @@ class HTMLTableToList():
 		table = soup.find('table')
 		all_tr = table.findAll('tr')
 		for tr in all_tr:
-			current_row = []
 			all_th  = tr.findAll('th')
 			all_td  = tr.findAll('td')
-			for th in all_th:
-				current_row.append(th.text)
-			for td in all_td:
-				current_row.append(td.text)
+			current_row = [th.text for th in all_th]
+			current_row.extend(td.text for td in all_td)
 			list_of_list.append(current_row)
 		return list_of_list

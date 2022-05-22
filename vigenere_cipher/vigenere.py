@@ -18,7 +18,7 @@ def decryption(key, text):
     #print(real_key)
     encr = ''
     #decrypting
-    for c in range(0,len(text)):
+    for c in range(len(text)):
         if text[c] == ' ':
             encr += ' '
         elif ((ord(text[c]) >= 48) and (ord(text[c]) <= 57)):
@@ -39,13 +39,13 @@ def encryption(key, text):
                 count = 0
             real_key += key[count]
             count += 1
-            
+
         else:
             real_key += ' '
     #print(real_key)
     encr = ''
     #encrypting
-    for c in range(0,len(text)):
+    for c in range(len(text)):
         if text[c] == ' ':
             encr += ' '
         elif ((ord(text[c]) >= 48) and (ord(text[c]) <= 57)):

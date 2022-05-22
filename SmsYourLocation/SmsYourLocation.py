@@ -9,6 +9,8 @@ print(city,loc)
 from twilio.rest import Client
 
 client = Client("TWILO SSID", "AUTH TOKEN")
-client.messages.create(to="PHONE NO YOU WANT TO SEND SMS",
-                       from_="YOUR TWILLO PHONE NUMBER",
-body="hi amma i am in  "+city+"   now and my cordinates are  " +loc)
+client.messages.create(
+    to="PHONE NO YOU WANT TO SEND SMS",
+    from_="YOUR TWILLO PHONE NUMBER",
+    body=f"hi amma i am in  {city}   now and my cordinates are  {loc}",
+)

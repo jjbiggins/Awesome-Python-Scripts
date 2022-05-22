@@ -23,7 +23,7 @@ class Crypt:
         # creates a file name with extension .enc
         output_file = f"{base_name}.enc"
         if os.path.exists(output_file):
-            print(f'Encrypted File already exists')
+            print('Encrypted File already exists')
         else:
             with open(input_file_path, 'rb') as i:
                 input_data = i.read()

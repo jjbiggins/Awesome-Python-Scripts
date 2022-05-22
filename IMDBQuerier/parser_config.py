@@ -56,11 +56,7 @@ def check_year(year_range):
 
 
 def check_type(film_type):
-    if  parse_options['type'] == 'both':
-        return True
-    elif  parse_options['type'] == film_type:
-        return True
-    return False
+    return parse_options['type'] in ['both', film_type]
 
 def watched_included():
     return parse_options['include_watched']

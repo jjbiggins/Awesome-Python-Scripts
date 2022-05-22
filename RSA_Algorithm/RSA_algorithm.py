@@ -9,11 +9,11 @@ https://www.youtube.com/watch?v=wXB-V_Keiu8
 
 
 def isPrime(n):
-    prime = [True for i in range(n+1)]
+    prime = [True for _ in range(n+1)]
     p = 2
-    while p*p<=n:
+    while p**2 <= n:
         if prime[p]==True:
-            for i in range(p*p,n+1,p):
+            for i in range(p**2, n+1, p):
                 prime[i]=False
         p+=1
 
@@ -60,7 +60,7 @@ def powermod(x,y,p):
     return res
 
 if __name__ == '__main__':
-    while (True):
+    while True:
         res = input('Do you want to enter prime numbers (y) or let the algorithm do it for you (n) or exit (e)? (y/n/e): ')
         if res == 'y':
             while True:
@@ -68,24 +68,27 @@ if __name__ == '__main__':
                 p = int(input('Enter a prime number: '))
                 if isPrime(p):
                     break
-                else:
-                    print(p,'is not a prime number')
-                    continue
+                print(p,'is not a prime number')
+                continue
 
             while True:
                 q = 17
                 q = int(input('Enter a different prime number: '))
                 if isPrime(q) and (p*q>26):
                     break
-                else:
-                    print('Both the prime numbers are same!! or product of both the prime numbers is less than 26!!')
-                    continue
+                print('Both the prime numbers are same!! or product of both the prime numbers is less than 26!!')
+                continue
 
             n = p*q
             phi_n = (p-1)*(q-1)
             a = 19
             while True:
-                a = int(input('Enter a number such that Greatest Common Divisor of that number with '+ str(phi_n) + ' is 1: '))
+                a = int(
+                    input(
+                        f'Enter a number such that Greatest Common Divisor of that number with {str(phi_n)} is 1: '
+                    )
+                )
+
                 if gcd(a,phi_n)!=1:
                     continue
                 else:
@@ -124,7 +127,7 @@ if __name__ == '__main__':
                         j+=1
                     else:
                         decrypted+=' '
-                    
+
                 print("Decrypted message is:",decrypted)
             else:
                 ans = input("Do you want to continue? (y/n): ")
@@ -170,7 +173,7 @@ if __name__ == '__main__':
                         j+=1
                     else:
                         decrypted+=' '
-                    
+
                 print("Decrypted message is:",decrypted)
             else:
                 ans = input("Do you want to continue? (y/n): ")

@@ -24,7 +24,6 @@ if __name__ == "__main__":
         if type( extensions) is not list:
             raise Exception('Expected a list object.')
         extensions = set( extensions)
-
 # Capitalizing all files except the Exceptions. (Folders remains untouched)
 #----------------------------------------------------------------------------------------------------------------
         # Generating a list of all files in path folder except Exceptions.
@@ -35,8 +34,6 @@ if __name__ == "__main__":
         for file in all_files:
             _name, _ext = os.path.splitext(file)
             os.rename(os.path.join(path,file),('.'.join([_name.title(),_ext[1:]])))
-
-
 #----------------------------------------------------------------------------------------------------------------
         # Generating a list of files which needs to be renamed as numbers. (i.e. is input  extensions)
         rename_files = {file for file in all_files if file.split('.')[1] in  extensions}
@@ -56,24 +53,21 @@ if __name__ == "__main__":
             if os.path.exists(os.path.join(path,ext)):
                 os.rename(os.path.join(path,ext),os.path.join(path,ext))
                 shutil.move(os.path.join(path,file_),os.path.join(path,ext,file_))
-                
+
             else:
-                if os.path.exists(os.path.join(path,folder_name)):
-                    shutil.move(os.path.join(path,file_),os.path.join(path,folder_name,file_))
-
-                else:
+                if not os.path.exists(os.path.join(path, folder_name)):
                     os.makedirs(os.path.join(path,folder_name))
-                    shutil.move(os.path.join(path,file_),os.path.join(path,folder_name,file_))
-
+                shutil.move(os.path.join(path,file_),os.path.join(path,folder_name,file_))
 # Deleting Empty Folders, Non-empty Folders are untouched and clearing up some mess created earlier.
 #----------------------------------------------------------------------------------------------------------------------
 
         for folder in os.listdir(path):
             # Deleted Empty folders
-            if os.path.isdir(folder):
-                if len(os.listdir(os.path.join(path,folder))) == 0:
-                    os.rmdir(os.path.join(path,folder))
-                    continue
+            if (
+                os.path.isdir(folder)
+                and len(os.listdir(os.path.join(path, folder))) == 0
+            ):
+                os.rmdir(os.path.join(path,folder))
 
 
 #----------------------------------------------------------------------------------------------------------------------

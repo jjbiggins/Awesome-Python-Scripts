@@ -21,7 +21,7 @@ s.setblocking(0)
 
 print ("Server Started.")
 
-while  KeyboardInterrupt:
+while KeyboardInterrupt:
     try:
         data, addr = s.recvfrom(2048)
         if addr not in clients:
@@ -41,6 +41,4 @@ while  KeyboardInterrupt:
             s.sendto(data, client)
     except:
         time.sleep(5)
-        pass
-
 s.close()

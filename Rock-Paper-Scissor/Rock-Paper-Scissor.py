@@ -9,7 +9,7 @@ import random
 
 def takePlayerInput():
     player = "blank"
-    while not (player.lower() == "r" or player.lower() == "p" or player.lower() == "s"):
+    while player.lower() not in {"r", "p", "s"}:
         player = input("Please Enter your input out of - R | P | S = ")
     return player.lower()
 

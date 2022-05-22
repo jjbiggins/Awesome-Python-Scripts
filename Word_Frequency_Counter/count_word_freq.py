@@ -68,7 +68,7 @@ if __name__ == "__main__":
     freq_dist_str = "\n".join([str(x) for x in freq_dist.most_common(freq_dist.B())])
     # Save the result.
     old_file_name = args.filepath.split("/")[-1].split(".")[0]
-    new_file_name = old_file_name + "_freq_dist"
+    new_file_name = f"{old_file_name}_freq_dist"
     new_filepath = args.filepath.replace(old_file_name, new_file_name)
     with open(new_filepath, "w") as f:
         f.write(freq_dist_str)

@@ -20,24 +20,13 @@ totalSellers = len(sellers)
 lastSeller = open('lastseller.txt', 'r').read()  # use the full path of file
 
 # Determines the next seller who will receive email
-if int(lastSeller) == totalSellers - 1:  # If the last one you received is the last
-    nextSeller = 0                       # on the list, get the first one on the list.
-else:                                    # If not,
-    nextSeller = int(lastSeller) + 1     # get the next one.
-
+nextSeller = 0 if int(lastSeller) == totalSellers - 1 else int(lastSeller) + 1
 currentSeller = str(nextSeller)
 
-# records which seller is receiving the current email.
-fvend = open('lastseller.txt', 'w')  # use the full path of file
-fvend.write(currentSeller)
-fvend.close()
-
+with open('lastseller.txt', 'w') as fvend:
+    fvend.write(currentSeller)
 # Check if you have an email for reply
-if not msg['reply-to']:
-    emailContact = msg['from']
-else:
-    emailContact = msg['reply-to']
-
+emailContact = msg['reply-to'] or msg['from']
 # writes log to csv
 with open('emails.csv', 'a') as fcsv:  # use the full path of file
     mailwriter = csv.writer(fcsv, delimiter=';')

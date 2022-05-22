@@ -23,12 +23,10 @@ except:
 	print("File Error!")
 	sys.exit()
 
-#rows and columns
-row = 1
 column = 1
 
 #for each line in the file
-for line in file:
+for row, line in enumerate(file, start=1):
 	#remove the \n from the line and make it a list with the seperator
 	line = line[:-1]
 	line = line.split(sep)
@@ -42,8 +40,6 @@ for line in file:
 
 	#to write the next line column number is set to 1 and row number is increased by 1
 	column = 1
-	row += 1
-
 #saving the excel file and closing the csv file
 wb.save(excel_name)
 file.close()

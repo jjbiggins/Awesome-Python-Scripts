@@ -45,7 +45,7 @@ alias = input("Username: ")
 time.sleep(0.2)
 
 #criação da mensagem e envio para o server
-message = input(alias + ">>> ")
+message = input(f"{alias}>>> ")
 while message != 'q':
     cryptmsg = encrypt("Fatec123", message)
     if message != "":
@@ -53,7 +53,7 @@ while message != 'q':
         s.sendto(cryptmsg, server)
         print(cryptmsg)
     tLock.acquire()
-    message = input(alias + ">>> ")
+    message = input(f"{alias}>>> ")
     cryptmsg = encrypt("Fatec123", message)
     tLock.release()
     time.sleep(0.2)

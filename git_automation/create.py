@@ -13,11 +13,11 @@ def create():
     folderName = str(sys.argv[1])
     folderpath = os.path.join(path,folderName)
     if os.path.exists(folderpath):
-        print("Folder already exists.. Link to the path - "+ folderpath)
+        print(f"Folder already exists.. Link to the path - {folderpath}")
     os.makedirs(folderpath)
     user = Github(username, password).get_user()
     repo = user.create_repo(sys.argv[1])
-    print("Succesfully created repository {}".format(sys.argv[1]))
+    print(f"Succesfully created repository {sys.argv[1]}")
 
 
 if __name__ == "__main__":

@@ -2,16 +2,13 @@ import requests
 
 
 def get_temperature(json_data):
-    temp_in_celcius = json_data['main']['temp']
-    return temp_in_celcius
+    return json_data['main']['temp']
 
 def get_weather_type(json_data):
-    weather_type = json_data['weather'][0]['description']
-    return weather_type
+    return json_data['weather'][0]['description']
 
 def get_wind_speed(json_data):
-    wind_speed = json_data['wind']['speed']
-    return wind_speed
+    return json_data['wind']['speed']
 
 
 
@@ -21,7 +18,10 @@ def get_weather_data(json_data, city):
     temperature = get_temperature(json_data)
     wind_speed = get_wind_speed(json_data)
     weather_details = ''
-    return weather_details + ("The weather in {} is currently {} with a temperature of {} degrees and wind speeds reaching {} km/ph".format(city, weather_type, temperature, wind_speed))
+    return (
+        weather_details
+        + f"The weather in {city} is currently {weather_type} with a temperature of {temperature} degrees and wind speeds reaching {wind_speed} km/ph"
+    )
 
 
 def main():

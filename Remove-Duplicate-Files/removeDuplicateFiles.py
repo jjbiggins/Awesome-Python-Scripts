@@ -14,7 +14,7 @@ def computeFileHash(fileName):
 
 #function to get list of files present in a directory
 def getFileList(dirPath):
-    listOfFiles=list()
+    listOfFiles = []
     for(dirpath, dirnames, filenames) in os.walk(dirPath):
         listOfFiles+=[os.path.join(dirpath, file) for file in filenames]
     return listOfFiles
@@ -39,7 +39,7 @@ def main():
         if len(List)>1:
             for path in List:
                 fileHash = computeFileHash(path)
-                if fileHash in duplicateFileHashes.keys():
+                if fileHash in duplicateFileHashes:
                     duplicateFileHashes[fileHash].append(path)
                 else:
                     duplicateFileHashes[fileHash]=[path]
@@ -50,7 +50,7 @@ def main():
             print(fileName, end=', ')
         print(")")
     delete = input('Enter Y to delete duplicate files: ')
-    if delete=='Y' or delete=='y':
+    if delete in ['Y', 'y']:
         for files in duplicateFileHashes.values():
             for fileName in files[1:]:
                 os.remove(fileName)

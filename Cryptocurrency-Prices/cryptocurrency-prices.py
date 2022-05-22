@@ -27,7 +27,7 @@ def get_price():
 
 #asset choice
 asset = input('Abbreviation of the asset: ')
-url = 'https://cryptowat.ch/assets/' + asset
+url = f'https://cryptowat.ch/assets/{asset}'
 
 #catching the NoneType AttributeError error for coins that cant be found
 try:

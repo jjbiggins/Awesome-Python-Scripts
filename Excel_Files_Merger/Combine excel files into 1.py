@@ -11,9 +11,7 @@ def reader(file):
     rows = []
     # min_row is set to 2, ignore the first row which contains headers
     for row in wb_sheet.iter_rows(min_row=2):
-        row_data = []
-        for cell in row:
-            row_data.append(cell.value)
+        row_data = [cell.value for cell in row]
         rows.append(row_data)
     return rows
 

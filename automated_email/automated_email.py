@@ -15,7 +15,7 @@ your_add = input('Enter your email address :')
 password = input('Enter your email password for login:')
 print('\n\n\n\n')
 choice = 'y'
-while(choice != '3' or choice != 'no'):
+while (choice != '3' or choice != 'no'):
     print("\n 1.Create a group\n2.Message a group\n3.Exit")
     choice = input()
     if choice == '1':
@@ -29,9 +29,8 @@ while(choice != '3' or choice != 'no'):
     elif choice == '2':
         gname = input('Enter name of group :')
         try:
-            f = open('groups.json', 'r')
-            members = json.load(f)
-            f.close()
+            with open('groups.json', 'r') as f:
+                members = json.load(f)
         except:
             print('Invalid group name. Please Create group first')
             exit

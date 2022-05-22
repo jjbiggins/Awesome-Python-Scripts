@@ -19,16 +19,16 @@ def fileSearch(dir_path, cnt):
 
 	for _ in range(cnt):
 		print("\t", end=" ")
-	print("[>] Directory: %s" % dir_path)
+	print(f"[>] Directory: {dir_path}")
 	for files in os.listdir(dir_path):
 		if os.path.isfile(dir_path+files):
 			filelist.append(dir_path+files)
 			for _ in range(cnt):
 				print("\t", end=" ")
-			print("[+] File Name: %s" % files)
+			print(f"[+] File Name: {files}")
 			file_cnt+=1
 		elif os.path.isdir(dir_path+files):
-			for i in range(cnt):
+			for _ in range(cnt):
 				print("\t", end=" ")
 			print("[!] SubDirectory: \"%s\" found. Start file search in this directory." % files)
 			filelist.extend(fileSearch(dir_path+files+"/", cnt+1))
@@ -47,11 +47,11 @@ def Carving(file_list):
 		print("[-] ", file_list[i], " File passed")
 
 		if (len(carv_cont) != 0):
-			carv = open('carv'+str(cnt)+'.jpeg', 'wb')
+			carv = open(f'carv{str(cnt)}.jpeg', 'wb')
 			for j in range(len(carv_cont)):
 				carv.write(carv_cont[j])
-			print('[*] carv',str(cnt),'.jpeg is created!')
-			carv_list.append('carv'+str(cnt)+'.jpeg')
+			print('[*] carv', cnt, '.jpeg is created!')
+			carv_list.append(f'carv{str(cnt)}.jpeg')
 			cnt+=1
 			carv.close
 
@@ -63,21 +63,20 @@ def findSignature(file):
 	flag = 0
 	contents = []
 
-	while(1):
+	while 1:
 		buf = file.read(0x200)
 		file.tell()
 		if(len(buf)==0): break
-		if(flag != 1):
+		if (flag != 1):
 			ishead = (str(buf[:3]).split('\'')[1])
 			if (header == ishead) and (flag == 0):
 				contents.append(buf)
 				flag = 1
+		elif (footer in (str(buf[-2:]).split('\'')[1])):
+			contents.append(buf)
+			return contents
 		else:
-			if(footer in (str(buf[-2:]).split('\'')[1])):
-				contents.append(buf)
-				return contents
-			else:
-				contents.append(buf)
+			contents.append(buf)
 	return contents
 
 

@@ -18,7 +18,7 @@ while exitMessage != 1:
     while passwordGeneratorUsage == 1:
 
         passwordGeneratorPrompt = 1
-       
+
         passwordNum = input('How many passwords would you like to generate? ')
         passwordNum = int(passwordNum)
 
@@ -29,25 +29,22 @@ while exitMessage != 1:
         print('\n')
         print('Here are your password(s): \n')
 
-        passwordFile = open('Passwords.txt', 'w')
-        for p in range(passwordNum):
-            password = ''
-            for c in range(passwordLength):
-                password += random.choice(chars)
-            print(password)
-            passwordFile.write(password + '\n')
-        passwordFile.close()
+        with open('Passwords.txt', 'w') as passwordFile:
+            for _ in range(passwordNum):
+                password = ''.join(random.choice(chars) for _ in range(passwordLength))
+                print(password)
+                passwordFile.write(password + '\n')
         print('\n')
 
         while passwordGeneratorPrompt == 1:
 
             getContinue = input('Do you want to use the Password Generator again? (Y/N)')
             print('\n')
-            
-            if getContinue == "Y" or getContinue == "y":
+
+            if getContinue in ["Y", "y"]:
                 passwordGeneratorPrompt = 0
                 print('\n')
-            elif getContinue == "N" or getContinue == "n":
+            elif getContinue in ["N", "n"]:
                 exitMessage = 1
                 passwordGeneratorUsage = 0
                 passwordGeneratorPrompt = 0

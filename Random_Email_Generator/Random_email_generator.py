@@ -10,8 +10,7 @@ If not an integer, keeps recursively cycling back until it gets an integer.
 def getcount():
 	rownums = input("How many email addresses?: ")
 	try:
-		rowint = int(rownums)
-		return rowint
+		return int(rownums)
 	except ValueError:
 		print ("Please enter an integer value")
 		return getcount()
@@ -31,8 +30,7 @@ def makeEmail():
 
 	winacc = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(acclen))
 
-	finale = winacc + "@" + windom + "." + winext
-	return finale
+	return f"{winacc}@{windom}.{winext}"
 
 #save count to var
 howmany = getcount()
@@ -53,9 +51,9 @@ prebar = progressbar.ProgressBar(maxval=int(howmany))
 for i in prebar(range(howmany)):
 	while counter < howmany:
 		emailarray.append(str(makeEmail()))
-		counter = counter+1
+		counter += 1
 		prebar.update(i)
-	
+
 print ("Creation completed.")
 
 for i in emailarray:

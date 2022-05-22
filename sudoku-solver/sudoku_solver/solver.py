@@ -2,12 +2,12 @@ def printsudoku(sudoku):
     print("\n\n")
     for i in range(len(sudoku)):
         line = ""
-        if i == 3 or i == 6:
+        if i in [3, 6]:
             print("---------------------")
         for j in range(len(sudoku[i])):
-            if j == 3 or j == 6:
+            if j in [3, 6]:
                 line += "| "
-            line += str(sudoku[i][j])+" "
+            line += f"{str(sudoku[i][j])} "
         print(line)
     print("\n\n")
 
@@ -19,9 +19,9 @@ def findNextCellToFill(sudoku):
     return -1, -1
 
 def isValid(sudoku, i, j, e):
-    rowOk = all([e != sudoku[i][x] for x in range(9)])
+    rowOk = all(e != sudoku[i][x] for x in range(9))
     if rowOk:
-        columnOk = all([e != sudoku[x][j] for x in range(9)])
+        columnOk = all(e != sudoku[x][j] for x in range(9))
         if columnOk:
             secTopX, secTopY = 3*(i//3), 3*(j//3)
             for x in range(secTopX, secTopX+3):

@@ -19,10 +19,10 @@ def random_line(file_path):
 
 """ Output a given number of random names """
 def random_names(number_of_names = 1):
-    first_names_file = Path("CSV_Database_Of_First_And_Last_Names/CSV_Database_of_First_Names.csv") 
+    first_names_file = Path("CSV_Database_Of_First_And_Last_Names/CSV_Database_of_First_Names.csv")
     last_names_file = Path("CSV_Database_Of_First_And_Last_Names/CSV_Database_of_Last_Names.csv")
     if first_names_file.is_file() and last_names_file.is_file(): # Check if file exists
-        for i in range(number_of_names):
+        for _ in range(number_of_names):
             random_first_name = random_line(first_names_file)
             random_last_name = random_line(last_names_file)
             print(f'{random_first_name} {random_last_name}')

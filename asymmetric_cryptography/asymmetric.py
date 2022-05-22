@@ -11,14 +11,12 @@ def generate_keys(modulus_length=256*4):
 
 def encryptit(message , publickey):
     encrypted_msg = publickey.encrypt(message, 32)[0]
-    encoded_encrypted_msg = base64.b64encode(encrypted_msg)
-    return encoded_encrypted_msg
+    return base64.b64encode(encrypted_msg)
 
 
 def decryptit(message, privatekey):
     decoded_encrypted_msg = base64.b64decode(message)
-    decoded_decrypted_msg = privatekey.decrypt(decoded_encrypted_msg)
-    return decoded_decrypted_msg
+    return privatekey.decrypt(decoded_encrypted_msg)
 
 
 if __name__ == '__main__':

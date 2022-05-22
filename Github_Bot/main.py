@@ -13,7 +13,7 @@ class GithubBot():
         self.base_url = "https://api.github.com/"
     
     def get_user_details(self, args):
-        url = self.base_url + "users/" + args[0]
+        url = f"{self.base_url}users/{args[0]}"
         res = requests.get(url)
         print('*********** USER:', args[0], '***************')
         if res.status_code == 200:
@@ -27,7 +27,7 @@ class GithubBot():
             print("Error getting details")
 
     def get_repo_details(self, args):
-        url = self.base_url + "repos/" + args[0] + "/" + args[1]
+        url = f"{self.base_url}repos/{args[0]}/{args[1]}"
         res = requests.get(url)
         print('********* USER:', args[0], '| REPO:', args[1], '*********')
         if res.status_code == 200:

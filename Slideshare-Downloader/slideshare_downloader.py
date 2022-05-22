@@ -37,9 +37,9 @@ class SlideShare:
         else:
             i_dir = self.download_images(input('SlideShare full URL (including "http://"): '))
         if filename:
-            self.create_pdf(i_dir, filename + '.pdf')
+            self.create_pdf(i_dir, f'{filename}.pdf')
         else:
-            self.create_pdf(i_dir, i_dir + '.pdf')
+            self.create_pdf(i_dir, f'{i_dir}.pdf')
 
     @staticmethod
     def download_images(page_url):

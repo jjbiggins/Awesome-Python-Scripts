@@ -1,4 +1,5 @@
 """Get commits for the repo specified as parameter and write work log."""
+
 import os
 import sys
 from pathlib import Path
@@ -28,9 +29,9 @@ from PyQt5.QtWidgets import QWidget
 sys.settrace
 APP_NAME = 'Work Log Generator'
 RESOURCES_FOLDER = 'resources/'
-ICON_PATH = RESOURCES_FOLDER + 'icone.ico'
-LOADER_PATH = RESOURCES_FOLDER + 'loader.gif'
-SAVE_ICON_PATH = RESOURCES_FOLDER + 'save.png'
+ICON_PATH = f'{RESOURCES_FOLDER}icone.ico'
+LOADER_PATH = f'{RESOURCES_FOLDER}loader.gif'
+SAVE_ICON_PATH = f'{RESOURCES_FOLDER}save.png'
 
 
 class WorkLogPreviewer(QMainWindow):
@@ -182,8 +183,7 @@ class MainWidget(QWidget):
 
     def line_keyPressEvent(self, event):
         """Detect enter or return key pressed."""
-        if (event.key() == QtCore.Qt.Key_Enter
-                or event.key() == QtCore.Qt.Key_Return):
+        if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Return]:
             self.getRepos()
         else:
             self.ght_keyPressEvent(event)
@@ -287,9 +287,7 @@ class ConnectionThread(QtCore.QThread):
         repo_list = []
         try:
 
-            for repo in self.g.get_user().get_repos():
-                repo_list.append(repo)
-
+            repo_list.extend(iter(self.g.get_user().get_repos()))
             if self.parent is not None:
                 self.parent.parent.statusBar().showMessage('Done.')
                 sys_tray = self.parent.parent.systemtray_icon

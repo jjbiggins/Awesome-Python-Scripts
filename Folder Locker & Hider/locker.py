@@ -35,12 +35,13 @@ def lock(fpath, password):
 
 	fname = os.path.basename(fpath)
 	cwd = '/'.join(fpath.split('/')[:-1]) + '/'
-	command1 = 'ren ' + fname + ' "Control Panel.{21EC2020-3AEA-1069-A2DD-' + key + '}"'
+	command1 = (
+	    f'ren {fname}' + ' "Control Panel.{21EC2020-3AEA-1069-A2DD-' + key + '}"')
 	command2 = 'attrib +h +s "Control Panel.{21EC2020-3AEA-1069-A2DD-' + key + '}"'
 
 	dct = read_json()
 
-	if not fname in dct.keys():
+	if fname not in dct.keys():
 		dct[fname] = [fpath, key]
 		write_to_json(dct)
 
@@ -50,7 +51,7 @@ def lock(fpath, password):
 			subprocess.call(command1, shell=True, cwd=cwd)
 			subprocess.call(command2, shell=True, cwd=cwd)
 
-			status = 'locked'	
+			status = 'locked'
 	else:
 		status = 'failed'
 
@@ -77,8 +78,6 @@ def unlock(fpath, password, key):
 		with shelve.open('files/pwd') as pwd_manager:
 			del pwd_manager[fname]
 
-		status = 'unlocked'
+		return 'unlocked'
 	else:
-		status = 'failed'
-
-	return status
+		return 'failed'
