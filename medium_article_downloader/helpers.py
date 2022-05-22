@@ -25,8 +25,7 @@ def extract_links(url):
 
 	html_response = requests.get(url)
 	parsed_response = bs4.BeautifulSoup(html_response.text, features='html5lib')
-	article_list = parsed_response.select('h3 > a')
-	return article_list
+	return parsed_response.select('h3 > a')
 
 
 def medium_text(url):
@@ -36,8 +35,4 @@ def medium_text(url):
 	parsed_response = bs4.BeautifulSoup(html_response.text, features='html5lib')
 	tag_list = parsed_response.find_all(['h1', 'p', 'h2'])
 
-	extracted_text = ''
-	for j in range(len(tag_list)):
-		extracted_text += tag_list[j].getText() + '\n\n'
-
-	return extracted_text
+	return ''.join(tag_list[j].getText() + '\n\n' for j in range(len(tag_list)))

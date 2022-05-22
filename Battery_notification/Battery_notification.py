@@ -19,7 +19,7 @@ def show_notification(show_text):
       time.sleep(0.005)
 
 def monitor():
-   while (True):
+   while True:
       time.sleep(1)
       battery = psutil.sensors_battery()
       plugged = battery.power_plugged
@@ -27,7 +27,10 @@ def monitor():
 
       if percent < 35:
          if plugged == False:
-            processThread = threading.Thread(target=show_notification, args=("Your Battery at "+str(percent)+"% Please plug the cable",))  # <- note extra ','
+            processThread = threading.Thread(
+                target=show_notification,
+                args=(f"Your Battery at {percent}% Please plug the cable", ),
+            )
             processThread.start()
             x.say("Your battery is getting low so charge it right now")
             x.runAndWait()

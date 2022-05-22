@@ -29,10 +29,7 @@ def generate_ticket():
 
 
 def get_tickets(args):
-    tickets = []
-    for _ in range(args.count):
-        tickets.append(generate_ticket())
-    return tickets
+    return [generate_ticket() for _ in range(args.count)]
 
 
 def main():

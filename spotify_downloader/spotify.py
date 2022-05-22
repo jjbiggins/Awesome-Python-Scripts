@@ -14,15 +14,15 @@ def spotify():
         # Playlist
         if (url.find('playlist') > -1):
             os.system(f"spotdl -p {url} --write-to playlist.txt")
-            os.system(f"spotdl --list playlist.txt")
+            os.system("spotdl --list playlist.txt")
         # Artist
         if (url.find('artist') > -1):
             os.system(f"spotdl --all {url} --write-to artist.txt")
-            os.system(f"spotdl --list artist.txt")
+            os.system("spotdl --list artist.txt")
         # album
         if (url.find('album') > -1):
             os.system(f"spotdl -a {url} --write-to album.txt")
-            os.system(f"spotdl --list album.txt")
+            os.system("spotdl --list album.txt")
             
 
 if __name__ == "__main__":

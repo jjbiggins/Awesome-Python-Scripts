@@ -3,33 +3,29 @@ borderstyle = "║"
 
 def drawboxtext(dat):
     height = len(dat)
-    y = 0
-    while y < height:
-        dat[y] = " "+dat[y]+" "
-        y += 1
-    width = len(max(dat, key=len))+1
-    counter = 0
+    for y in range(height):
+        dat[y] = f" {dat[y]} "
     x = 0
     line = "╔"
+    width = len(max(dat, key=len))+1
     while x < width-1:
-        line = line + "═"
+        line = f"{line}═"
         x += 1
-    line = line + "╗"
+    line = f"{line}╗"
     print(line)
-    while counter < height:
+    for counter in range(height):
         reqspaces = width -1- len(dat[counter])
         xsp = ""
         while reqspaces > 0:
-            xsp = xsp + " "
+            xsp = f"{xsp} "
             reqspaces -= 1
         print(borderstyle+dat[counter]+xsp+borderstyle)
-        counter += 1
     x = 0
     line = "╚"
     while x < width-1:
-        line = line + "═"
+        line = f"{line}═"
         x += 1
-    line = line + "╝"
+    line = f"{line}╝"
     print(line)
 
 

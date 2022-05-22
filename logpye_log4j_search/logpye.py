@@ -45,15 +45,10 @@ def ruleset(rule, message, logger, timestamp, error_level, thread):
     logging.debug("ruleset")
     compiled = message + logger + timestamp + error_level + thread
     if args.regexsearch:
-        finder = re.findall(rule, compiled)
-        if finder:
+        if finder := re.findall(rule, compiled):
             frontend(message, logger, timestamp, error_level, thread)
-    if args.asciisearch:
-        if rule in compiled:
-            frontend(message, logger, timestamp, error_level, thread)
-    else:
-        if rule in compiled:
-            frontend(message, logger, timestamp, error_level, thread)
+    if rule in compiled:
+        frontend(message, logger, timestamp, error_level, thread)
 
 
 def frontend(message, logger, timestamp, error_level, thread):
@@ -61,7 +56,7 @@ def frontend(message, logger, timestamp, error_level, thread):
     if args.frontend:
         print(eval(args.frontend))
     else:
-        print("{}: {} - {}".format(error_level, logger, timestamp))
+        print(f"{error_level}: {logger} - {timestamp}")
 
 
 def main(logfile, itir_file, ruleset, frontend):
@@ -82,7 +77,7 @@ def main(logfile, itir_file, ruleset, frontend):
         ruleset(rule, message, logger, timestamp, error_level, thread)
         if error_level == "ERROR":
             errors += 1
-        if error_level == "WARN":
+        elif error_level == "WARN":
             warns += 1
 
 

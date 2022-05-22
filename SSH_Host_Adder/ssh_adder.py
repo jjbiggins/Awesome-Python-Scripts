@@ -8,8 +8,7 @@ HOST {name}
 """
 
 def args_to_obj(args):
-    obj = ssh_template.format(**args)
-    return obj
+    return ssh_template.format(**args)
 
 def add_to_conf(conf, obj):
     conf = os.path.expanduser(conf)

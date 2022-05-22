@@ -11,14 +11,14 @@ with open(file) as f:
 	for line in f:
 		(key, val) = line.strip().split(',')
 		state_capitals[key] = val
-		
-while(True):
+
+while True:
 	choice = random.choice(list(state_capitals.keys()))
-	answer = input(('{}? '.format(choice)))
+	answer = input(f'{choice}? ')
 	if answer == state_capitals[choice]:
 		print("Correct! Nice job.")
 	elif answer.lower() == "exit":
 		print("Goodbye")
 		break
 	else:
-		print("Incorrect. The correct answer is {}".format(state_capitals[choice]))
+		print(f"Incorrect. The correct answer is {state_capitals[choice]}")

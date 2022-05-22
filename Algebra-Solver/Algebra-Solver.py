@@ -10,7 +10,7 @@ def solver(x):
 
 def main(x):
 	X = solver(x)
-	print("X = " + str(X))
+	print(f"X = {str(X)}")
 
 if __name__ == "__main__":
 	main(sys.argv[1])

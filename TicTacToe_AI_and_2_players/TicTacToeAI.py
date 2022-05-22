@@ -34,9 +34,10 @@ def bestMove(board):
             board[i] = " "
     return move+1
 def findBestMove(board, maximizing, depth):
-    if wincheck(board) is not None:
-        return wincheck(board)
-    if depth > 0:
+        if wincheck(board) is not None:
+            return wincheck(board)
+        if depth <= 0:
+                return 0
         depth -= 1
         if maximizing == 1:
             best = float("-inf")
@@ -56,5 +57,3 @@ def findBestMove(board, maximizing, depth):
                     board[i] = " "
                     best = min(best, Try)
             return best
-    else:
-        return 0

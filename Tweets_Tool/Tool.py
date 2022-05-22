@@ -165,10 +165,9 @@ class TweetManager:
 		if hasattr(tweetCriteria, 'until'):
 			urlGetData += ' until:' + tweetCriteria.until
 
-		if hasattr(tweetCriteria, 'topTweets'):
-			if tweetCriteria.topTweets:
-				url = "https://twitter.com/i/search/timeline?q=%s&src=typd&max_position=%s"
-		url = url % (urllib.parse.quote(urlGetData), refreshCursor)
+		if hasattr(tweetCriteria, 'topTweets') and tweetCriteria.topTweets:
+			url = "https://twitter.com/i/search/timeline?q=%s&src=typd&max_position=%s"
+		url %= (urllib.parse.quote(urlGetData), refreshCursor)
 
 		headers = [('Host', "twitter.com"),
 		           ('User-Agent', "Mozilla/5.0 (Windows NT 6.1; Win64; x64)"),
@@ -194,13 +193,11 @@ class TweetManager:
 			jsonResponse = response.read()
 		except:
 			print(
-			    "Twitter weird response. Try to see on browser: https://twitter.com/search?q=%s&src=typd"
-			    % urllib.parse.quote(urlGetData))
+			    f"Twitter weird response. Try to see on browser: https://twitter.com/search?q={urllib.parse.quote(urlGetData)}&src=typd"
+			)
 			sys.exit()
 			return
-		dataJson = json.loads(jsonResponse)
-
-		return dataJson
+		return json.loads(jsonResponse)
 
 
 class TweetObtain:

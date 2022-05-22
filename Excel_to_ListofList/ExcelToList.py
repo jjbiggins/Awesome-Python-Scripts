@@ -15,8 +15,9 @@ class ExcelToList():
 		numberofcols = inputsheet.ncols
 		start_row,start_col = 0,0
 		for current_row in range(start_row,numberofrows):
-			currentlist = []
-			for current_col in range(start_col,numberofcols):
-				currentlist.append(inputsheet.cell(current_row,current_col).value)
+			currentlist = [
+			    inputsheet.cell(current_row, current_col).value
+			    for current_col in range(start_col, numberofcols)
+			]
 			converted_list.append(currentlist)
 		return converted_list

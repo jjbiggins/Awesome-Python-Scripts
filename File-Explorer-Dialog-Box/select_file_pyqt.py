@@ -11,7 +11,7 @@ def select_files(directory_location=None):
 
 def main():
 	filenames = select_files()
-	print("You selected:\n", "\n".join(filename for filename in filenames))
+	print("You selected:\n", "\n".join(filenames))
 
 
 if __name__ == "__main__":

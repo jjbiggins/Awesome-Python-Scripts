@@ -23,13 +23,13 @@ def get_snapshot_listing(options):
     )
     if options.noop:
         return url
-    else:
-        #do the real stuff
-        r = requests.get(url)
-        if r.status_code == 200:
-            return r.text
-        else:
-            return "Error in making request.  received {}: {}".format(r.status_code, r.text)
+    #do the real stuff
+    r = requests.get(url)
+    return (
+        r.text
+        if r.status_code == 200
+        else f"Error in making request.  received {r.status_code}: {r.text}"
+    )
 
 
 def create_snapshot(options):
@@ -44,7 +44,7 @@ def create_snapshot(options):
 
     indexname = options.index_name
     period = options.period
-    timestamp = dt.datetime.today().strftime('%Y%m%d_%H%M')
+    timestamp = dt.datetime.now().strftime('%Y%m%d_%H%M')
     # use special testing period for indices to snapshot if defined
     if 'testing' in options and options.testing:
         indices = indexname
@@ -66,7 +66,7 @@ def create_snapshot(options):
             "taken_because": "Snapshot updated {d} for: {r}".format(d=timestamp,
             r=options.reason)
         } }
-    print("create snapshot {} with payload: {}".format(snapshot_name, payload))
+    print(f"create snapshot {snapshot_name} with payload: {payload}")
     if options.noop:
         print("Would have called url: {url}\n with payload: {pl}".format(url=url, pl=payload))
         return 200
@@ -75,16 +75,17 @@ def create_snapshot(options):
         while check_snapshot_inprogress(options):
             sleep_count += 1
             if options.verbose:
-                print("A snapshot is running currently, script has slept {} times so far".format(
-                    sleep_count
-                ))
+                print(
+                    f"A snapshot is running currently, script has slept {sleep_count} times so far"
+                )
+
             time.sleep(300)
             if sleep_count > 20:
                 print("Snapshot still running, exceeded 10 sleep cycles")
                 exit(2)
         snap_result = requests.put(url, json=payload)
         if snap_result.status_code == 200 and options.verbose:
-            print("Requested: {}".format(snap_result.json()))
+            print(f"Requested: {snap_result.json()}")
         else:
             print("Error encountered {code}: {response}".format(code=snap_result.status_code,
                                                     response=snap_result.json()))
@@ -92,15 +93,15 @@ def create_snapshot(options):
 
 
 def restore_snapshot(options):
-    print("TODO: restore snapshot with options: {}".format(options))
+    print(f"TODO: restore snapshot with options: {options}")
 
 
 def check_snapshot_inprogress(options):
     snapshot_list = get_snapshot_listing(options)
-    for line in [line for line in snapshot_list.split('\n')]:
+    for line in list(snapshot_list.split('\n')):
         if 'IN_PROGRESS' in line.split():
             if options.verbose:
-                print("snapshot in progress: {}".format(line))
+                print(f"snapshot in progress: {line}")
             return 'IN_PROGRESS' in snapshot_list
 
 

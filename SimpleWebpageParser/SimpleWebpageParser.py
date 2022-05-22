@@ -9,5 +9,4 @@ class SimpleWebpageParser():
 	def getHTML(self):
 		r  = requests.get(self.url)
 		data = r.text
-		soup = BeautifulSoup(data,"lxml")
-		return soup
+		return BeautifulSoup(data,"lxml")

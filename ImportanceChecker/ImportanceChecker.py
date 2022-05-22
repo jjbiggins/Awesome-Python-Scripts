@@ -25,9 +25,7 @@ def main():
 
     query = input()
 
-    important = ImportanceChecker(query)
-
-    if (important):
+    if important := ImportanceChecker(query):
         print(f"{query} is important!")
     else:
         print(f"{query} isn't that important.")

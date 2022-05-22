@@ -8,21 +8,19 @@ website_list = ["www.facebook.com", "facebook.com"] #You can add your own list o
 
 while True:
      if dt(dt.now().year,dt.now().month,dt.now().day,8) < dt.now() < dt(dt.now().year,dt.now().month,dt.now().day,16): #You can choose your own working time period
-         print("working hours...")
-         with open(host_path,'r+') as file:
-            content=file.read()
-            for website in website_list:
-                if website in content:
+          print("working hours...")
+          with open(host_path,'r+') as file:
+               content=file.read()
+               for website in website_list:
                     pass
-            else:
-                file.write(redirect+" "+ website+"\n")
+               file.write(f"{redirect} {website}" + "\n")
      else:
-         with open(host_path,'r+') as file:
-             content=file.readlines()
-             file.seek(0)
-             for line in content:
-                 if not any(website in line for website in website_list):
-                     file.write(line)
-             file.truncate()
-         print("fun hours...")
+          with open(host_path,'r+') as file:
+               content=file.readlines()
+               file.seek(0)
+               for line in content:
+                    if all(website not in line for website in website_list):
+                         file.write(line)
+               file.truncate()
+          print("fun hours...")
      time.sleep(10)

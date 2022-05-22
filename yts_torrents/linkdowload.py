@@ -36,7 +36,7 @@ def download_torrent(bin_content, movie_name, type):
     if '/' in torrent_name:
         torrent_name = torrent_name.split('/')[0]
     if torrent_name in cache:
-        print("{} already downloaded".format(torrent_name))
+        print(f"{torrent_name} already downloaded")
     path = os.path.join('torrents', torrent_name)
     with open(path, 'wb') as f:
         f.write(bin_content)
@@ -48,15 +48,16 @@ torrent_list = ['torrents1.json', 'torrents2.json', 'torrents3.json', 'torrents5
                 'torrents10.json', 'torrents11.json', 'torrents12.json', 'torrents13.json']
 for torrent_json_file in torrent_list:
     if not os.path.isfile(torrent_json_file):
-        print("{} does not exist. Run yts_am_api.py script "
-              "to create json files with torrent links to download".format(
-                  torrent_json_file))
+        print(
+            f"{torrent_json_file} does not exist. Run yts_am_api.py script to create json files with torrent links to download"
+        )
+
         continue
     print(torrent_json_file)
     with open(torrent_json_file, 'r') as f:
         content = json.load(f)
     movies = list(content.keys())
-    print("no. of movies: {}".format(len(movies)))
+    print(f"no. of movies: {len(movies)}")
     for movie in movies:
         torrents = content[movie]
         bluray_1080 = torrents.get('1080_bluray')

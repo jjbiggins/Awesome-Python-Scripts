@@ -22,7 +22,7 @@ import ipaddress, json
 def CloudFlareLookup(type,record):
 	import requests
 	headers = {'accept': 'application/dns-json'}
-	url = "https://1.1.1.1/dns-query?name=%s&type=%s" % (record,type)
+	url = f"https://1.1.1.1/dns-query?name={record}&type={type}"
 	r = requests.get(url, headers=headers)
 	j_data = json.loads(r.text)
 	try:

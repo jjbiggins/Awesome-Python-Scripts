@@ -36,12 +36,11 @@ def batch(infolder, outfolder, watermark):
                     (basewidth, hsize), Image.ANTIALIAS)
 
                 # Save new smaller image
-                smaller_new_image.save(
-                    join(outfolder, ('with-watermark_' + name)), 'jpeg')
+                smaller_new_image.save(join(outfolder, f'with-watermark_{name}'), 'jpeg')
 
             except Exception as error:
                 # Debug line while making changes
-                print('Caught this error: ' + repr(error))
+                print(f'Caught this error: {repr(error)}')
 
 
 if __name__ == '__main__':

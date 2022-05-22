@@ -29,7 +29,7 @@ passElem.send_keys(password)
 
 browser.find_element_by_id('edit-submit').click()
 
-browser.get("https://www.codechef.com/submit/" + problem)
+browser.get(f"https://www.codechef.com/submit/{problem}")
 
 time.sleep(20)
 

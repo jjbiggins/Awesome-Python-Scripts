@@ -9,4 +9,4 @@ myHeight,myWidth = img.size
 img=img.resize((myHeight,myWidth),PIL.Image.ANTILIAS)
 save_path=asksaveasfile()
 
-img.save(save_path+"_compressed.JPG")
+img.save(f"{save_path}_compressed.JPG")

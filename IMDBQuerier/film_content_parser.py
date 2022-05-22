@@ -12,7 +12,7 @@ Eliminate parenthesis from the text.
 """
 def parse_film_year(year_text):
     found_numbers = re.findall("[0-9]", year_text)
-    return ''.join(found_numbers[0:4])
+    return ''.join(found_numbers[:4])
 
 
 """
@@ -43,10 +43,10 @@ Remove extra spaces and new line characters.
 Return genres in a list.
 """
 def obtain_all_genres(genres_text):
-    obtained_genres = []
-    for genre in genres_text.split(','):
-        obtained_genres.append(genre.replace('\n', '').replace(' ', ''))
-    return obtained_genres
+    return [
+        genre.replace('\n', '').replace(' ', '')
+        for genre in genres_text.split(',')
+    ]
 
 
 """
@@ -61,9 +61,7 @@ Determine the film type from the year text.
 A TV-series will include '-' but a film will not include.
 """
 def determine_film_type(year_text):
-    if '–' in year_text:
-        return 'tv-series'
-    return 'film'
+    return 'tv-series' if '–' in year_text else 'film'
 
 """
 Sometimes images cannot be loaded and its src will be a placeholder.

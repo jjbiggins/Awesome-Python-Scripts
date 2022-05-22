@@ -13,12 +13,11 @@ async def scanner(ip, port, loop=None):
 
     try:
         reader, writer = await asyncio.wait_for(fut, timeout=0.5) # This is where it is blocking?
-        print("{}:{} Connected".format(ip, port))
+        print(f"{ip}:{port} Connected")
     except asyncio.TimeoutError:
         pass
-    # handle connection refused and bunch of others
     except Exception as exc:
-        print('Error {}:{} {}'.format(ip, port, exc))
+        print(f'Error {ip}:{port} {exc}')
 
 def scan(ips, ports, randomize=False):
     """Scan the ports"""

@@ -31,5 +31,5 @@ class DBHelper:
     def get_items(self, owner):
         stmt = "SELECT description,due_date FROM items WHERE owner = (?)"
         args = (owner, )
-        return [x for x in self.conn.execute(stmt, args)]
+        return list(self.conn.execute(stmt, args))
 

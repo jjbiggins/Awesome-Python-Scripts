@@ -49,12 +49,12 @@ def get(bot, update):
         update.message.reply_text("You are not Authorized.")
         return
     file = update.message.text.split(" ")[-1]
-    if(file == "/send"):
+    if (file == "/send"):
         update.message.reply_text("Invalid File name.")
     else:
         reply = "Findind and Sending a requested file to you. Hold on..."
         update.message.reply_text(reply)
-        path = os.getcwd()+'/'+file
+        path = f'{os.getcwd()}/{file}'
         if (os.path.exists(path)):
             bot.send_document(chat_id=update.message.chat_id,document=open(path, 'rb'), timeout = 100)
         else:
@@ -67,19 +67,19 @@ def ls(bot, update):
         update.message.reply_text("You are not Authorized.")
         return
     file = update.message.text.split(" ")[-1]
-    if(file == "/show"):
+    if (file == "/show"):
         update.message.reply_text("Invalid Directory name.")
     else:
         reply = "Findind and Sending a list of files to you. Hold on..."
         update.message.reply_text(reply)
-        path = os.getcwd()+'/'+file
+        path = f'{os.getcwd()}/{file}'
         if (os.path.exists(path)):
             update.message.reply_text(os.listdir(path))
         else:
             update.message.reply_text("Directory not Found.")
 
 def put(bot, update):
-    f = open(str(os.getcwd())+"/file", "r")
+    f = open(f"{str(os.getcwd())}/file", "r")
     file_id = f.read()
     f.close
     if file_id == "":
@@ -91,7 +91,7 @@ def put(bot, update):
         if len(path) < 1:
             update.message.reply_text("Enter Path correctly.")
         else:
-            new_file.download(os.getcwd()+'/'+path)
+            new_file.download(f'{os.getcwd()}/{path}')
             update.message.reply_text("File Stored.")
 
 
@@ -100,7 +100,7 @@ def mkdir(bot, update):
     if len(message) < 1 or message[-1] == "/mkdir":
         update.message.reply_text("Invalid Syntax. Refer syntax in help section.")
         return
-    path = os.getcwd() + "/" + message[-1]
+    path = f"{os.getcwd()}/{message[-1]}"
     os.mkdir(path)
     update.message.reply_text("Folder Created.")
 
@@ -109,7 +109,7 @@ def echo(bot, update):
     """Echo the user message."""
     if update.message.document:
         file_id = update.message.document.file_id
-        f = open(str(os.getcwd())+"/file", "w")
+        f = open(f"{str(os.getcwd())}/file", "w")
         f.write(file_id)
         f.close
         update.message.reply_text("Received.Now send file name and location to store. using /put command")
@@ -150,7 +150,7 @@ def remove(bot, update):
     admin = update.message.from_user.username
     if admin == username_list[0]:
         filename = update.message.text.split(" ")[-1]
-        os.remove(os.getcwd()+ "/" + filename)
+        os.remove(f"{os.getcwd()}/{filename}")
         update.message.reply_text("File Removed.")
     else:
         update.message.reply_text("You are not Authorized.")
@@ -159,7 +159,7 @@ def rmdir(bot, update):
     admin = update.message.from_user.username
     if admin == username_list[0]:
         filename = update.message.text.split(" ")[-1]
-        shutil.rmtree(os.getcwd()+ "/" + filename)
+        shutil.rmtree(f"{os.getcwd()}/{filename}")
         update.message.reply_text("Folder Removed.")
     else:
         update.message.reply_text("You are not Authorized.")

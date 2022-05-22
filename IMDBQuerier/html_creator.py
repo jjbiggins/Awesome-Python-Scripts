@@ -57,12 +57,15 @@ def create_table_from_object(film_object):
             film_object.get_genres_string(), film_object.get_rating(), film_object.storyline)
 
 def create_html_file(film_objects_list, list_name):
-    film_html_str = ""
-    # Generate html list
-    for film_object in film_objects_list:
-        film_html_str += create_table_from_object(film_object)
+    film_html_str = "".join(
+        create_table_from_object(film_object)
+        for film_object in film_objects_list
+    )
 
     crete_directory()
 
-    html_file = open(os.path.join(HTML_DIRS, list_name + '.html'), "w", encoding='utf-8')
+    html_file = open(
+        os.path.join(HTML_DIRS, f'{list_name}.html'), "w", encoding='utf-8'
+    )
+
     html_file.write(start_html(list_name) + film_html_str + close_html() )

@@ -123,7 +123,7 @@ class WindowRecorder:
     ''' Start recording '''
     def start_recording(self):
         self.__is_recording=True
-        self.__temp_video_frames = list()
+        self.__temp_video_frames = []
         self.__btn_start_stop.configure(text=btn_close_txt, command=self.stop, bg='red')
         self.__cmb_box['state']='disabled'
         self.count=0
@@ -135,8 +135,12 @@ class WindowRecorder:
     ''' Stop screen recording '''
     def stop(self):
         self.__is_recording=False
-        file = filedialog.asksaveasfile(defaultextension="*.*", filetypes=[('mp4', '.mp4'),])
-        if file:
+        if file := filedialog.asksaveasfile(
+            defaultextension="*.*",
+            filetypes=[
+                ('mp4', '.mp4'),
+            ],
+        ):
             if file.name:
                 print(file.name)
                 shape = self.__temp_video_frames[0].shape

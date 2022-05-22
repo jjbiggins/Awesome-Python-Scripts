@@ -3,13 +3,10 @@ import platform
 
 
 def squid():
-    if platform.platform().find("Ubuntu-16.04"):
-        squid = "squid"
-    else:
-        squid = "squid3"
+    squid = "squid" if platform.platform().find("Ubuntu-16.04") else "squid3"
     subprocess.call(["sudo", "apt-get", "update"])
     subprocess.call(["sudo", "apt-get", "install", "squid"])
-    path = "/etc/{}/squid.conf".format(squid)
+    path = f"/etc/{squid}/squid.conf"
     file = open(path).read()
 
     s1 = file.replace("http_access allow localhost manager", "#http_access allow localhost manager")
@@ -20,21 +17,18 @@ def squid():
     print("Default Port: ", file_port)
     port = input("Change to: ")
     c_port = s3.replace("\nhttp_port " + file_port + "\n", "\nhttp_port " + port + "\n")
-    open("/etc/{}/squid.conf".format(squid), "w").write(c_port)
+    open(f"/etc/{squid}/squid.conf", "w").write(c_port)
     subprocess.call(["sudo", "service", squid, "restart"])
     print("Squid Proxy installed")
 
 
 def add_pw():
-    if platform.platform().find("Ubuntu-16.04"):
-        squid = "squid"
-    else:
-        squid = "squid3"
+    squid = "squid" if platform.platform().find("Ubuntu-16.04") else "squid3"
     subprocess.call(["sudo", "apt-get", "install", "apache2-utils"])
-    subprocess.call(["sudo", "touch", "/etc/{}/squid_passwd".format(squid)])
-    subprocess.call(["sudo", "chown", "proxy", "/etc/{}/squid_passwd".format(squid)])
+    subprocess.call(["sudo", "touch", f"/etc/{squid}/squid_passwd"])
+    subprocess.call(["sudo", "chown", "proxy", f"/etc/{squid}/squid_passwd"])
     user = input("Username: ")
-    subprocess.call(["sudo", "htpasswd", "/etc/{}/squid_passwd".format(squid), user])
+    subprocess.call(["sudo", "htpasswd", f"/etc/{squid}/squid_passwd", user])
     path = "/etc/squid/squid.conf"
     file = open(path).read()
     sq = file.replace("http_access allow all\n",
@@ -47,43 +41,32 @@ def add_pw():
 
 
 def change_pw():
-    if platform.platform().find("Ubuntu-16.04"):
-        squid = "squid"
-    else:
-        squid = "squid3"
+    squid = "squid" if platform.platform().find("Ubuntu-16.04") else "squid3"
     user = input("Username: ")
-    subprocess.call(["sudo", "htpasswd", "/etc/{}/squid_passwd".format(squid), user])
+    subprocess.call(["sudo", "htpasswd", f"/etc/{squid}/squid_passwd", user])
     subprocess.call(["sudo", "service", squid, "restart"])
     print("Succesfully")
 
 
 def remove_pw():
-    if platform.platform().find("Ubuntu-16.04"):
-        squid = "squid"
-    else:
-        squid = "squid3"
-    os.remove("/etc/{}/squid_passwd".format(squid))
-    path = "/etc/{}/squid.conf".format(squid)
+    squid = "squid" if platform.platform().find("Ubuntu-16.04") else "squid3"
+    os.remove(f"/etc/{squid}/squid_passwd")
+    path = f"/etc/{squid}/squid.conf"
     file = open(path).read()
     sq = file.replace("auth_param basic program /usr/lib/squid/basic_ncsa_auth /etc/squid/squid_passwd\n"
                           "acl ncsa_users proxy_auth REQUIRED\n"
                           "http_access allow ncsa_users\n", "http_access allow all\n")
-    open("/etc/{}/squid.conf".format(squid), "w").write(sq)
+    open(f"/etc/{squid}/squid.conf", "w").write(sq)
     subprocess.call(["sudo", "service", squid, "restart"])
     print("Succesfully")
 
 
 def uninstall_squid():
-    if platform.platform().find("Ubuntu-16.04"):
-        squid = "squid"
-    else:
-        squid = "squid3"
+    squid = "squid" if platform.platform().find("Ubuntu-16.04") else "squid3"
     del_sq = input("Are you sure? (y/n): ")
-    if del_sq == "y" or del_sq == "Y":
+    if del_sq in ["y", "Y"]:
         subprocess.call(["sudo", "apt-get", "purge", "--auto-remove", squid])
         print("Succesfully")
-    else:
-        pass
 
 while True:
     squid_select = input("""
@@ -106,5 +89,3 @@ while True:
         uninstall_squid()
     elif squid_select == "6":
         break
-    else:
-        pass

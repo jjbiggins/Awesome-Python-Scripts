@@ -10,6 +10,6 @@ with open(pdf_path, 'rb') as f_r:
     pdf_pages = pdftotext.PDF(f_r)
 
 for i, page in enumerate(pdf_pages):
-    print('Page {}'.format(i))
+    print(f'Page {i}')
     print(page)
     print('*'*100)
